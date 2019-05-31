@@ -1,10 +1,11 @@
-const { diff } = require('rus-diff');
+const { diff } = require('./diff');
 
-function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id') {
+function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options = {}) {
   const beforeRecordCopy = beforeRecord.slice(0);
   const afterRecordCopy = afterRecord.slice(0);
   const changed = [];
   const removed = [];
+  const changedDetails = [];
 
   beforeRecordCopy.forEach((item1) => {
     const keyValue1 = item1[keyName];
@@ -14,8 +15,13 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id') {
 
       if (keyValue1 === keyValue2) {
         afterRecordCopy.splice(index2, 1);
-        if (diff(item1, item2)) {
+        const diffResult = diff(item1, item2, null, options);
+
+        if (diffResult) {
           changed.push(item2);
+          changedDetails.push({
+            [keyValue1]: diffResult
+          });
         }
         return true;
       }
@@ -29,6 +35,7 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id') {
 
   return {
     changed,
+    changedDetails,
     added: afterRecordCopy,
     removed
   }

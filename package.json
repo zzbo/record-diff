@@ -9,6 +9,6 @@
   "author": "zzbozheng",
   "license": "MIT",
   "dependencies": {
-    "rus-diff": "^1.1.0"
+    "json-hash": "^1.1.0"
   }
 }
