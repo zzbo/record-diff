@@ -93,7 +93,6 @@ const diff = function(a, b, stack = [], options = {}, top = true, garbage = {}) 
       bVal = b[bKey];
       const { strictEqual = true, stringifyEqual } = options;
       
-
       switch (true) {
         case aVal === bVal
           || (!strictEqual && aVal == bVal)

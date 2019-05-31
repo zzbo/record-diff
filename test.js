@@ -29,9 +29,9 @@ console.log(equalLength(recordDiff(a4, b4, 'id'), 'changed', 1)
 
 const a5 = [{id: 1, x: 1}, {id: 2, z: 2}];
 const b5 = [{id: 1, x: 1, y: 1}, {id: 2, z: 3}, {id: 3, i: 2}, {id: 4, i: 2}];
-console.log(equalLength(recordDiff(a5, b5, 'id'), 'changed', 1)
+console.log(equalLength(recordDiff(a5, b5, 'id'), 'changed', 2)
 && equalLength(recordDiff(a5, b5, 'id'), 'added', 2)
-&& equalLength(recordDiff(a5, b5, 'id'), 'removed', 1));
+&& equalLength(recordDiff(a5, b5, 'id'), 'removed', 0));
 
 const a6 = [{id: 1, x: {a: 2}}];
 const b6 = [{id: 1, x: {a: '21'}}];
@@ -41,6 +41,6 @@ console.log(equalLength(recordDiff(a6, b6, 'id'), 'changed', 1)
 
 const a7 = [{id: 1, x: {a: 0}}];
 const b7 = [{id: 1, x: {a: '0'}}];
-console.log(equalLength(recordDiff(a7, b7, 'id'), 'changed', 0)
-&& equalLength(recordDiff(a7, b7, 'id'), 'added', 0)
-&& equalLength(recordDiff(a7, b7, 'id'), 'removed', 0));
+console.log(equalLength(recordDiff(a7, b7, 'id', { strictEqual: false }), 'changed', 0)
+&& equalLength(recordDiff(a7, b7, 'id', { strictEqual: false }), 'added', 0)
+&& equalLength(recordDiff(a7, b7, 'id', { strictEqual: false }), 'removed', 0));
