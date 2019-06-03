@@ -50,8 +50,9 @@ const arrize = function(path, glue) {
 };
 
 const diff = function(a, b, stack = [], options = {}, top = true, garbage = {}) {
-  const aKeys = Object.keys(a).sort();
-  const bKeys = Object.keys(b).sort();
+  const { ignoreKey } = options;
+  const aKeys = Object.keys(a).sort().filter(key => key !== ignoreKey);
+  const bKeys = Object.keys(b).sort().filter(key => key !== ignoreKey);
   const aN = aKeys.length;
   const bN = bKeys.length;
   let k;
@@ -92,7 +93,7 @@ const diff = function(a, b, stack = [], options = {}, top = true, garbage = {}) 
       aVal = a[aKey];
       bVal = b[bKey];
       const { strictEqual = true, stringifyEqual } = options;
-      
+
       switch (true) {
         case aVal === bVal
           || (!strictEqual && aVal == bVal)
@@ -152,7 +153,7 @@ const diff = function(a, b, stack = [], options = {}, top = true, garbage = {}) 
     setB(bI++);
   }
 
-  
+
   if (top) {
     const collect = (function() {
       const ref1 = delta.$set;
@@ -174,7 +175,7 @@ const diff = function(a, b, stack = [], options = {}, top = true, garbage = {}) 
       const e = collect[j];
       const k = e[0];
       const key = e[1];
-      
+
       delta.$rename[key] = k;
       delete delta.$unset[key];
       delete delta.$set[k];
