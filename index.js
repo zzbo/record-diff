@@ -6,6 +6,7 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options
   const changed = [];
   const removed = [];
   const changedDetails = [];
+  const { strictEqual = true } = options;
 
   beforeRecordCopy.forEach((item1) => {
     const keyValue1 = item1[keyName];
@@ -13,7 +14,7 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options
     const isExist = afterRecordCopy.some((item2, index2) => {
       const keyValue2 = item2[keyName];
 
-      if (keyValue1 === keyValue2) {
+      if (keyValue1 === keyValue2 || (!strictEqual && keyValue1 == keyValue2)) {
         afterRecordCopy.splice(index2, 1);
         const diffResult = diff(item1, item2, null, options);
 
