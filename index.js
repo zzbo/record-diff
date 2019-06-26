@@ -14,6 +14,7 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options
     const isExist = afterRecordCopy.some((item2, index2) => {
       const keyValue2 = item2[keyName];
 
+      // eslint-disable-next-line eqeqeq
       if (keyValue1 === keyValue2 || (!strictEqual && keyValue1 == keyValue2)) {
         afterRecordCopy.splice(index2, 1);
         const diffResult = diff(item1, item2, null, options);
@@ -21,7 +22,7 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options
         if (diffResult) {
           changed.push(item2);
           changedDetails.push({
-            [keyValue1]: diffResult
+            [keyValue1]: diffResult,
           });
         }
         return true;
@@ -38,8 +39,8 @@ function recordDiff(beforeRecord = [], afterRecord = [], keyName = 'id', options
     changed,
     changedDetails,
     added: afterRecordCopy,
-    removed
-  }
+    removed,
+  };
 }
 
 module.exports = recordDiff;
